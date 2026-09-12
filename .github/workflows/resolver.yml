@@ -14,9 +14,13 @@ on:
   workflow_dispatch:
     inputs:
       trozos:
-        description: 'Cuántos trozos hay en tanda/ (000, 001, ...)'
+        description: 'Cuántos trozos hay en la carpeta (000, 001, ...)'
         required: true
         default: '40'
+      carpeta:
+        description: 'De dónde salen los spots. Sirve para probar con una tanda pequeña.'
+        required: true
+        default: 'tanda'
 
 permissions:
   contents: read
@@ -58,7 +62,7 @@ jobs:
       - name: Resolver el trozo ${{ matrix.trozo }}
         run: |
           set -u
-          entrada="$GITHUB_WORKSPACE/tanda/${{ matrix.trozo }}"
+          entrada="$GITHUB_WORKSPACE/${{ github.event.inputs.carpeta }}/${{ matrix.trozo }}"
           salida="$GITHUB_WORKSPACE/soluciones"
           mkdir -p "$salida"
           if [ ! -d "$entrada" ]; then
