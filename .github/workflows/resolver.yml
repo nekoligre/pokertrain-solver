@@ -76,12 +76,23 @@ jobs:
           hilos=$(nproc)
           cd TexasSolver-v0.2.0-Linux
 
-          total=$(ls "$entrada"/*.txt 2>/dev/null | wc -l)
+          # El exportador deja los spots ordenados de barato a caro en
+          # orden.txt. Importa: si al trozo se le acaba el tiempo, lo que se
+          # queda sin hacer es la cola mas cara y no un spot cualquiera.
+          if [ -f "$entrada/orden.txt" ]; then
+            lista=$(sed "s|^|$entrada/|" "$entrada/orden.txt")
+          else
+            lista=$(ls "$entrada"/*.txt 2>/dev/null)
+          fi
+          total=$(echo "$lista" | grep -c . || true)
           hecho=0
           fallos=0
           n=0
           echo "trozo ${{ matrix.trozo }}: $total spots, $hilos hilos"
-          for f in "$entrada"/*.txt; do
+          # Con un pipe el bucle iria en un subshell y los contadores se
+          # perderian: el resumen final saldria a cero. De ahi el <<<.
+          while read -r f; do
+            [ -n "$f" ] || continue
             nombre=$(basename "$f" .txt)
             n=$((n + 1))
             # El nombre del volcado es el que espera datos/soluciones.
@@ -107,7 +118,7 @@ jobs:
               echo "--- fin"
             fi
             echo "[$n/$total] $estado $(($(date +%s) - t0))s $nombre"
-          done
+          done <<< "$lista"
           echo "trozo ${{ matrix.trozo }}: $hecho de $total resueltos, $fallos fallidos"
           # El resumen sale en la pestana del run, sin abrir el log.
           {
