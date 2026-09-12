@@ -1,0 +1,104 @@
+# Resuelve una tanda de spots con TexasSolver, repartida entre varios runners.
+#
+# Se lanza a mano: nadie quiere que esto arranque solo al empujar un commit.
+# Cada trozo de la carpeta `tanda/` lo coge un runner distinto, y el plan
+# gratuito deja veinte a la vez, así que el reparto lo hace el propio matrix y
+# GitHub va soltando los que caben.
+#
+# El binario de Linux es la MISMA versión 0.2.0 que corre en local, así que las
+# estrategias que devuelve son idénticas a las de casa.
+
+name: Resolver tanda
+
+on:
+  workflow_dispatch:
+    inputs:
+      trozos:
+        description: 'Cuántos trozos hay en tanda/ (000, 001, ...)'
+        required: true
+        default: '40'
+
+permissions:
+  contents: read
+
+jobs:
+  # El matrix no acepta un rango, así que se construye aquí la lista de trozos.
+  reparto:
+    runs-on: ubuntu-latest
+    outputs:
+      trozos: ${{ steps.lista.outputs.trozos }}
+    steps:
+      - id: lista
+        run: |
+          n=${{ github.event.inputs.trozos }}
+          echo "trozos=$(seq -f '%03g' 0 $((n - 1)) | jq -R . | jq -cs .)" >> "$GITHUB_OUTPUT"
+
+  resolver:
+    needs: reparto
+    runs-on: ubuntu-latest
+    # Un job se corta a las 6 h. Con margen: si un trozo se pasa, se reparte en
+    # más trozos, no se sube este número.
+    timeout-minutes: 350
+    strategy:
+      # Que un trozo falle no puede tirar los otros diecinueve.
+      fail-fast: false
+      matrix:
+        trozo: ${{ fromJson(needs.reparto.outputs.trozos) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bajar TexasSolver
+        run: |
+          curl -sL -o solver.zip \
+            https://github.com/bupticybee/TexasSolver/releases/download/v0.2.0/TexasSolver-v0.2.0-Linux.zip
+          unzip -q solver.zip
+          chmod +x TexasSolver-v0.2.0-Linux/console_solver
+          TexasSolver-v0.2.0-Linux/console_solver --help 2>&1 | head -3 || true
+
+      - name: Resolver el trozo ${{ matrix.trozo }}
+        run: |
+          set -u
+          entrada="$GITHUB_WORKSPACE/tanda/${{ matrix.trozo }}"
+          salida="$GITHUB_WORKSPACE/soluciones"
+          mkdir -p "$salida"
+          if [ ! -d "$entrada" ]; then
+            echo "No hay trozo ${{ matrix.trozo }}: nada que hacer."
+            exit 0
+          fi
+
+          # Los hilos, los que tenga el runner de verdad. El fichero viene con
+          # cuatro porque es lo que da un runner normal, pero si algún día son
+          # más, que se usen.
+          hilos=$(nproc)
+          cd TexasSolver-v0.2.0-Linux
+
+          total=$(ls "$entrada"/*.txt 2>/dev/null | wc -l)
+          hecho=0
+          fallos=0
+          for f in "$entrada"/*.txt; do
+            nombre=$(basename "$f" .txt)
+            # El nombre del volcado es el que espera datos/soluciones.
+            sed "s/^set_thread_num .*/set_thread_num $hilos/" "$f" > entrada.txt
+            echo "dump_result $salida/$nombre.json" >> entrada.txt
+
+            # Veinte minutos por solve, igual que la cola de casa: un árbol que
+            # se va de madre no puede comerse las seis horas del trozo.
+            if timeout 1200 ./console_solver -i entrada.txt > /dev/null 2>&1 \
+               && [ -s "$salida/$nombre.json" ]; then
+              hecho=$((hecho + 1))
+            else
+              fallos=$((fallos + 1))
+              rm -f "$salida/$nombre.json"
+              echo "falló: $nombre"
+            fi
+          done
+          echo "trozo ${{ matrix.trozo }}: $hecho de $total resueltos, $fallos fallidos"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: soluciones-${{ matrix.trozo }}
+          path: soluciones/
+          # Se bajan en cuanto acaba; no hace falta guardarlas un mes y el plan
+          # gratuito solo da 500 MB de artefactos.
+          retention-days: 2
+          if-no-files-found: warn
