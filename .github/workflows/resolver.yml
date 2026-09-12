@@ -75,24 +75,37 @@ jobs:
           total=$(ls "$entrada"/*.txt 2>/dev/null | wc -l)
           hecho=0
           fallos=0
+          n=0
+          echo "trozo ${{ matrix.trozo }}: $total spots, $hilos hilos"
           for f in "$entrada"/*.txt; do
             nombre=$(basename "$f" .txt)
+            n=$((n + 1))
             # El nombre del volcado es el que espera datos/soluciones.
             sed "s/^set_thread_num .*/set_thread_num $hilos/" "$f" > entrada.txt
             echo "dump_result $salida/$nombre.json" >> entrada.txt
 
+            # Una linea por spot con lo que tardo: sin esto, un trozo de seis
+            # horas es una caja negra y no se sabe si avanza o esta colgado.
+            t0=$(date +%s)
             # Veinte minutos por solve, igual que la cola de casa: un árbol que
             # se va de madre no puede comerse las seis horas del trozo.
             if timeout 1200 ./console_solver -i entrada.txt > /dev/null 2>&1 \
                && [ -s "$salida/$nombre.json" ]; then
               hecho=$((hecho + 1))
+              estado=ok
             else
               fallos=$((fallos + 1))
               rm -f "$salida/$nombre.json"
-              echo "falló: $nombre"
+              estado=FALLO
             fi
+            echo "[$n/$total] $estado $(($(date +%s) - t0))s $nombre"
           done
           echo "trozo ${{ matrix.trozo }}: $hecho de $total resueltos, $fallos fallidos"
+          # El resumen sale en la pestana del run, sin abrir el log.
+          {
+            echo "### Trozo ${{ matrix.trozo }}"
+            echo "$hecho de $total resueltos, $fallos fallidos"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - uses: actions/upload-artifact@v4
         with:
