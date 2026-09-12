@@ -93,7 +93,7 @@ jobs:
             t0=$(date +%s)
             # Veinte minutos por solve, igual que la cola de casa: un árbol que
             # se va de madre no puede comerse las seis horas del trozo.
-            if timeout 1200 ./console_solver -i entrada.txt > /dev/null 2>&1 \
+            if timeout 1200 ./console_solver -i entrada.txt > ultima.log 2>&1 \
                && [ -s "$salida/$nombre.json" ]; then
               hecho=$((hecho + 1))
               estado=ok
@@ -101,6 +101,10 @@ jobs:
               fallos=$((fallos + 1))
               rm -f "$salida/$nombre.json"
               estado=FALLO
+              # Lo que dijo el solver: sin esto un fallo no se diagnostica.
+              echo "--- salida del solver en $nombre:"
+              tail -n 20 ultima.log | sed 's/^/    /'
+              echo "--- fin"
             fi
             echo "[$n/$total] $estado $(($(date +%s) - t0))s $nombre"
           done
