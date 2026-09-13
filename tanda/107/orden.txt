@@ -1,0 +1,15 @@
+pokerstars_262038802638__flop.txt
+lab_BTN-SB-r3-f03__flop.txt
+winamax_22842865-115-1787739811__flop.txt
+winamax_22870985-361-1788342636__flop.txt
+winamax_22835304-32-1787580169__turn.txt
+winamax_22871375-33-1788342496__turn.txt
+winamax_22833731-495-1787557856__flop.txt
+winamax_22834280-172-1787565328__turn.txt
+winamax_22826715-804-1787408114__turn.txt
+winamax_22870849-464-1788342220__flop.txt
+winamax_22871375-25-1788342189__flop.txt
+winamax_22842150-332-1787729772__flop.txt
+winamax_22842703-637-1787753402__flop.txt
+winamax_22865152-269757-1788471751__flop.txt
+pokerstars_262039660974__flop.txt

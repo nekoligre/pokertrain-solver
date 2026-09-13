@@ -16,7 +16,7 @@ on:
       trozos:
         description: 'Cuántos trozos hay en la carpeta (000, 001, ...)'
         required: true
-        default: '40'
+        default: '120'
       carpeta:
         description: 'De dónde salen los spots. Sirve para probar con una tanda pequeña.'
         required: true
@@ -126,7 +126,12 @@ jobs:
             echo "$hecho de $total resueltos, $fallos fallidos"
           } >> "$GITHUB_STEP_SUMMARY"
 
+      # SIEMPRE. Cuando a un trozo se le acaba el tiempo, Actions lo mata y se
+      # salta los pasos que quedan: en la tanda del 12 de septiembre eso tiro a
+      # la basura 21 trozos de casi seis horas de calculo ya hecho. Con always()
+      # se sube lo resuelto hasta ese momento.
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: soluciones-${{ matrix.trozo }}
           path: soluciones/
