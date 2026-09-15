@@ -1,0 +1,20 @@
+set_pot 100
+set_effective_stack 692
+set_board Qs,5d,Kc,Js
+set_range_ip 33:0.853,44:0.748,54s:0.996,55:0.998,65s:0.947,66:0.409,75s:0.966,76s:0.859,86s:0.537,87s:0.529,97s:0.154,98s:0.018,A2s:0.845,A3s:0.829,A4s:0.8,A5s:0.523,A6s:0.535,A7s:0.391,A8s:0.143,AJs:0.693,AJo:0.347,AKo:0.649,AQs:0.024,ATs:0.803,ATo:0.338,AA,AKs:0.84,J9s:0.663,JTs:0.811,K8s:0.219,K9s:0.089,KJo:0.872,KJs:0.773,KQo:0.996,KQs:0.995,KTs:0.154,KK:0.944,QQ:0.979,T8s:0.172,T9s:0.836
+set_range_oop 65s:0.775,77:0.21,88:0.414,99:0.251,AJo:0.817,ATs:0.762,ATo:0.251,JTs:0.224,JTo:0.945,K7s:0.999,K8s:0.967,K9o:0.997,K9s:0.991,KJo:0.998,KJs:0.997,KQo:0.094,KTo:0.992,KTs:0.98,Q8s:0.762,Q9s,QJs:0.985,QJo:0.9,QTs:0.989,QTo:0.866
+set_bet_sizes oop,turn,bet,33,50,75
+set_bet_sizes oop,turn,raise,50
+set_bet_sizes oop,river,bet,50
+set_bet_sizes ip,turn,bet,33,50,75
+set_bet_sizes ip,turn,raise,50
+set_bet_sizes ip,river,bet,50
+set_allin_threshold 1.0
+build_tree
+set_thread_num 4
+set_accuracy 0.3
+set_max_iteration 250
+set_print_interval 10
+set_use_isomorphism 1
+start_solve
+set_dump_rounds 1

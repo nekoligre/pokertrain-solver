@@ -1,0 +1,20 @@
+set_pot 100
+set_effective_stack 1350
+set_board 7h,3s,Ks,8h
+set_range_ip 22:0.92,43s:0.649,44,53s:0.725,54s:0.528,55,64s:0.316,65s:0.196,66:0.95,74s:0.667,75s:0.667,76s:0.667,76o,85s:0.667,86s:0.523,87s:0.667,87o,88,96s:0.546,97s:0.667,97o,98s:0.433,98o:0.592,99:0.891,A2s:0.547,A2o:0.316,A3s:0.203,A3o:0.241,A4s:0.55,A4o:0.378,A5s:0.481,A5o:0.329,A6s:0.182,A6o:0.236,A7s:0.608,A7o:0.529,A8s:0.613,A8o:0.607,A9s:0.518,A9o:0.451,AJs:0.569,AJo:0.597,AKs:0.078,AKo:0.129,AQs:0.545,AQo:0.608,ATs:0.534,ATo:0.541,J6s:0.493,J7s:0.667,J8s:0.432,J8o:0.631,J9s:0.471,J9o:0.379,JTs:0.537,JTo:0.466,JJ,K2s,K4s,K5s,K6s,K8s:0.607,K8o:0.7,K9s:0.212,K9o:0.382,KJs:0.091,KJo:0.203,KQs:0.102,KQo:0.194,KTs:0.139,KTo:0.276,Q4s:0.721,Q5s:0.576,Q6s:0.352,Q7s:0.667,Q8s:0.664,Q8o:0.621,Q9s:0.547,Q9o:0.355,QJs:0.636,QJo:0.514,QTs:0.623,QTo:0.469,QQ,T6s:0.3,T7s:0.667,T8s:0.382,T8o:0.627,T9s:0.432,T9o:0.473,TT:0.999
+set_range_oop 22:0.816,33:0.648,44:0.924,55:0.951,76s:0.849,87s:0.995,98s:0.833,A6s:0.758,A7s:0.818,A8s,J8s:0.879,K6s:0.92,K7s:0.464,K8s:0.928,Q8s:0.913,T8s:0.864
+set_bet_sizes oop,turn,bet,33,50,75
+set_bet_sizes oop,turn,raise,50
+set_bet_sizes oop,river,bet,50
+set_bet_sizes ip,turn,bet,33,50,75
+set_bet_sizes ip,turn,raise,50
+set_bet_sizes ip,river,bet,50
+set_allin_threshold 1.0
+build_tree
+set_thread_num 4
+set_accuracy 0.3
+set_max_iteration 250
+set_print_interval 10
+set_use_isomorphism 1
+start_solve
+set_dump_rounds 1
