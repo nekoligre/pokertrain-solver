@@ -1,0 +1,5 @@
+pokerstars_262078554661__turn-estrechado.txt
+pokerstars_262077648652__flop.txt
+winamax_22834341-152-1787564381__flop.txt
+winamax_22833944-648-1787571658__flop.txt
+winamax_22826715-800-1787407930__flop.txt

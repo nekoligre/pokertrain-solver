@@ -102,9 +102,10 @@ jobs:
             # Una linea por spot con lo que tardo: sin esto, un trozo de seis
             # horas es una caja negra y no se sabe si avanza o esta colgado.
             t0=$(date +%s)
-            # Veinte minutos por solve, igual que la cola de casa: un árbol que
-            # se va de madre no puede comerse las seis horas del trozo.
-            if timeout 1200 ./console_solver -i entrada.txt > ultima.log 2>&1 \
+            # Cuarenta minutos por solve. Con pocos spots por trozo caben de
+            # sobra en las seis horas del job, y con veinte se cortaba el 36%
+            # de los spots caros, que son justo los que faltan.
+            if timeout 2400 ./console_solver -i entrada.txt > ultima.log 2>&1 \
                && [ -s "$salida/$nombre.json" ]; then
               hecho=$((hecho + 1))
               estado=ok
