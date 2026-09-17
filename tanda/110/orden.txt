@@ -1,5 +1,5 @@
-winamax_22865768-1768-1788273698__river-estrechado.txt
-winamax_22847412-29-1787836610__flop.txt
-winamax_22842161-3227-1787836335__flop.txt
-winamax_22830809-3646-1787607234__flop.txt
-winamax_22818605-10198-1787219000__flop.txt
+lab_UTG-HJ-r2-f09-tKs__turn-estrechado.txt
+lab_HJ-SB-r2-f09-tTs__turn-estrechado.txt
+lab_HJ-BTN-r2-f08-t3s__turn-estrechado.txt
+lab_BTN-SB-r2-f01-t2h__turn-estrechado.txt
+lab_BTN-SB-r3-f41__flop.txt

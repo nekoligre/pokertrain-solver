@@ -1,6 +1,6 @@
-winamax_22865152-273211-1788473799__river-estrechado.txt
-pokerstars_262066383247__turn-estrechado.txt
-winamax_22818605-101457-1787307825__flop.txt
-winamax_22834280-173-1787565359__flop.txt
-winamax_22865152-271669-1788472801__flop.txt
-winamax_22842947-459-1787753304__flop.txt
+lab_BTN-SB-r3-f08-t3s__turn-estrechado.txt
+lab_BTN-BB-r2-f10-tKs__turn-estrechado.txt
+lab_SB-BB-r3-f05-t2h__turn-estrechado.txt
+lab_UTG-SB-r2-f08-t3s__turn-estrechado.txt
+lab_CO-BB-r2-f05-tKh__turn-estrechado.txt
+lab_UTG-HJ-r2-f05-tKh__turn-estrechado.txt

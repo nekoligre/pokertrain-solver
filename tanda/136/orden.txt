@@ -1,5 +1,5 @@
-pokerstars_262077823713__turn-estrechado.txt
-winamax_22830193-1666-1787520666__flop.txt
-winamax_22836557-161-1787606939__flop.txt
-winamax_22865152-290091-1788515338__flop.txt
-winamax_22835783-499-1787608120__flop.txt
+lab_CO-SB-r2-f08-t3s__turn-estrechado.txt
+lab_UTG-BB-r2-f12-tKs__turn-estrechado.txt
+lab_CO-BTN-r2-f10-t9s__turn-estrechado.txt
+lab_UTG-BB-r2-f04-tQh__turn-estrechado.txt
+lab_SB-BB-r3-f32__flop.txt

@@ -1,6 +1,6 @@
-winamax_22826715-770-1787407092__river-estrechado.txt
-winamax_22818605-29427-1787235355__turn-estrechado.txt
-winamax_22832831-142-1787520058__flop.txt
-winamax_22846189-676-1787836665__flop.txt
-winamax_22831007-1049-1787521226__flop.txt
-winamax_22865152-271313-1788472566__flop.txt
+lab_UTG-BTN-r2-f07-tKs__turn-estrechado.txt
+lab_UTG-HJ-r2-f12-tQs__turn-estrechado.txt
+lab_UTG-CO-r2-f01-tAh__turn-estrechado.txt
+lab_HJ-SB-r2-f14-tAh__turn-estrechado.txt
+lab_UTG-BTN-r2-f10-t9s__turn-estrechado.txt
+lab_SB-BB-r2-f10-t9s__turn-estrechado.txt
