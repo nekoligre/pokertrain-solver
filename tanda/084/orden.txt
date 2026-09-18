@@ -1,6 +1,0 @@
-lab_CO-BTN-r2-f12-tQs__turn-estrechado.txt
-lab_UTG-CO-r2-f12-t9s__turn-estrechado.txt
-lab_UTG-CO-r2-f04-tKs__turn-estrechado.txt
-lab_CO-SB-r2-f02-tJs__turn-estrechado.txt
-lab_CO-SB-r3-f47__flop.txt
-lab_SB-BB-r1-f02__flop.txt

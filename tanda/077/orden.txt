@@ -1,6 +1,0 @@
-lab_UTG-BTN-r2-f07-tKs__turn-estrechado.txt
-lab_UTG-HJ-r2-f12-tQs__turn-estrechado.txt
-lab_UTG-CO-r2-f01-tAh__turn-estrechado.txt
-lab_HJ-SB-r2-f14-tAh__turn-estrechado.txt
-lab_UTG-BTN-r2-f10-t9s__turn-estrechado.txt
-lab_SB-BB-r2-f10-t9s__turn-estrechado.txt

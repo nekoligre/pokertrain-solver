@@ -1,5 +1,0 @@
-lab_HJ-BB-r2-f15-tKs__turn-estrechado.txt
-lab_HJ-BB-r2-f12-tQs__turn-estrechado.txt
-lab_SB-BB-r2-f09-t3d__turn-estrechado.txt
-lab_HJ-BB-r2-f02-tKs__turn-estrechado.txt
-lab_HJ-CO-r2-f03-tAh__turn-estrechado.txt
