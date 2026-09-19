@@ -1,5 +1,5 @@
 set_pot 100
-set_effective_stack 25
+set_effective_stack 109
 set_board Th,9h,8d,2s,Ks
 set_range_ip 66:0.253,77,88:0.72,A2s:0.2,A3s:0.063,A4s:0.063,A5s:0.063,AJs:0.586,AKs:0.161,AQs:0.181,ATs:0.793,JTs:0.999,JJ:0.406,KJs:0.714,KQs:0.33,KTs:0.981,QTs:0.996
 set_range_oop 99:0.757,A5s:0.281,AKs:0.257,AKo:0.247,AQs:0.552,AA:0.815,JJ,KQs:0.905,KK:0.895,QQ:0.968,TT:0.579

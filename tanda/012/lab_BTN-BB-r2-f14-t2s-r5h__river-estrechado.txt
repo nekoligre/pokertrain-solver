@@ -1,0 +1,18 @@
+set_pot 100
+set_effective_stack 218
+set_board Ks,Qs,Jh,2s,5h
+set_range_ip 55:0.076,66:0.066,77:0.066,A2s:0.106,A3s:0.136,A4s:0.136,A5s:0.115,AJs:0.567,AKs,AQs:0.995,AQo:0.646,JTs:0.451,KJs:0.154,KTs:0.971,QJs:0.657,QTs:0.696,TT:0.284
+set_range_oop 88:0.324,99:0.152,A2s:0.138,A3s:0.643,A4s:0.643,A5s:0.517,AJs:0.323,AJo:0.64,AKs:0.373,AKo:0.23,AQs:0.841,AQo,AA:0.094,KQs:0.069,KQo:0.109,KTs:0.92,KK:0.601,QJs:0.675,QTs:0.53,QQ:0.756,TT:0.048
+set_bet_sizes oop,river,bet,33,50,75
+set_bet_sizes oop,river,raise,50
+set_bet_sizes ip,river,bet,33,50,75
+set_bet_sizes ip,river,raise,50
+set_allin_threshold 1.0
+build_tree
+set_thread_num 4
+set_accuracy 0.3
+set_max_iteration 250
+set_print_interval 10
+set_use_isomorphism 1
+start_solve
+set_dump_rounds 1
