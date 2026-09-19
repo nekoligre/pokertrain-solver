@@ -88,6 +88,12 @@ jobs:
           hecho=0
           fallos=0
           n=0
+          # La explotabilidad con la que acaba cada solve, que es lo unico que
+          # dice si la solucion vale. El volcado no la trae y el log se pisa en
+          # el spot siguiente, asi que se guarda aqui o se pierde. Va junto a
+          # las soluciones para que viaje en el artefacto.
+          csv="$salida/explotabilidad-${{ matrix.trozo }}.csv"
+          echo "nombre,explotabilidad,segundos,estado" > "$csv"
           echo "trozo ${{ matrix.trozo }}: $total spots, $hilos hilos"
           # Con un pipe el bucle iria en un subshell y los contadores se
           # perderian: el resumen final saldria a cero. De ahi el <<<.
@@ -118,13 +124,22 @@ jobs:
               tail -n 20 ultima.log | sed 's/^/    /'
               echo "--- fin"
             fi
-            echo "[$n/$total] $estado $(($(date +%s) - t0))s $nombre"
+            # La ultima que imprimio el solver: es donde se quedo.
+            expl=$(grep -o 'Total exploitability [0-9.]*' ultima.log | tail -1 | awk '{print $3}')
+            segundos=$(($(date +%s) - t0))
+            echo "$nombre,${expl:-},$segundos,$estado" >> "$csv"
+            echo "[$n/$total] $estado ${segundos}s expl=${expl:-?}% $nombre"
           done <<< "$lista"
           echo "trozo ${{ matrix.trozo }}: $hecho de $total resueltos, $fallos fallidos"
           # El resumen sale en la pestana del run, sin abrir el log.
+          # Cuantos llegaron al objetivo de 0,3% y cual fue el peor: sin esto
+          # hay que abrir el CSV para saber si la tanda vale.
+          buenas=$(awk -F, 'NR>1 && $2 != "" && $2 <= 0.3' "$csv" | wc -l)
+          peor=$(awk -F, 'NR>1 && $2 != "" {if ($2 > m) m = $2} END {print m + 0}' "$csv")
           {
             echo "### Trozo ${{ matrix.trozo }}"
             echo "$hecho de $total resueltos, $fallos fallidos"
+            echo "convergidas por debajo del 0,3%: $buenas de $hecho - la peor: $peor%"
           } >> "$GITHUB_STEP_SUMMARY"
 
       # SIEMPRE. Cuando a un trozo se le acaba el tiempo, Actions lo mata y se
