@@ -21,6 +21,10 @@ on:
         description: 'De dónde salen los spots. Sirve para probar con una tanda pequeña.'
         required: true
         default: 'tanda'
+      tope:
+        description: 'Segundos por solve antes de cortarlo. Un flop con SPR alto no cabe en 2400.'
+        required: true
+        default: '2400'
 
 permissions:
   contents: read
@@ -62,6 +66,9 @@ jobs:
       - name: Resolver el trozo ${{ matrix.trozo }}
         run: |
           set -u
+          # Se coge aqui y no dentro del bucle para que el valor no se cuele en
+          # el comando: lo que llega de fuera va a una variable, siempre.
+          tope="${{ github.event.inputs.tope }}"
           entrada="$GITHUB_WORKSPACE/${{ github.event.inputs.carpeta }}/${{ matrix.trozo }}"
           salida="$GITHUB_WORKSPACE/soluciones"
           mkdir -p "$salida"
@@ -108,10 +115,12 @@ jobs:
             # Una linea por spot con lo que tardo: sin esto, un trozo de seis
             # horas es una caja negra y no se sabe si avanza o esta colgado.
             t0=$(date +%s)
-            # Cuarenta minutos por solve. Con pocos spots por trozo caben de
-            # sobra en las seis horas del job, y con veinte se cortaba el 36%
-            # de los spots caros, que son justo los que faltan.
-            if timeout 2400 ./console_solver -i entrada.txt > ultima.log 2>&1 \
+            # El tope lo pone quien lanza la tanda. Cuarenta minutos valen para
+            # rivers y turns; un flop de bote abierto con SPR 17 y el BB
+            # defendiendo con ochenta manos NO cabe, y de 32 se salvaron 8.
+            # Cuando el tope sea largo, un solve por trozo: si no, el segundo
+            # se queda sin sitio dentro de las 6 h del job.
+            if timeout "$tope" ./console_solver -i entrada.txt > ultima.log 2>&1 \
                && [ -s "$salida/$nombre.json" ]; then
               hecho=$((hecho + 1))
               estado=ok
